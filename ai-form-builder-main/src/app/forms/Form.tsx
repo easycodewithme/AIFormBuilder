@@ -103,6 +103,7 @@ const Form = (props: Props) => {
 
       const response = await fetch(`${baseUrl}/api/form/new`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

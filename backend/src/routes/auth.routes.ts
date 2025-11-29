@@ -37,8 +37,8 @@ router.post("/signup", async (req, res) => {
   res
     .cookie("token", token, {
       httpOnly: true,
-      sameSite: config.isProduction ? "none" : "lax",
-      secure: config.isProduction,
+      sameSite: "none",
+      secure: true,
     })
     .status(201)
     .json({ id: user._id, email: user.email });

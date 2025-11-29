@@ -28,4 +28,5 @@ export const config = {
     environment: process.env.PINECONE_ENVIRONMENT || "",
     indexName: process.env.PINECONE_INDEX_NAME || "",
   },
+  isProduction: process.env.NODE_ENV === "production",
 };

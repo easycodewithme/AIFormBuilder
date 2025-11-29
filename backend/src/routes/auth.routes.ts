@@ -37,7 +37,8 @@ router.post("/signup", async (req, res) => {
   res
     .cookie("token", token, {
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: config.isProduction ? "none" : "lax",
+      secure: config.isProduction,
     })
     .status(201)
     .json({ id: user._id, email: user.email });
@@ -47,7 +48,8 @@ router.post("/logout", (req, res) => {
   res
     .cookie("token", "", {
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: config.isProduction ? "none" : "lax",
+      secure: config.isProduction,
       expires: new Date(0),
     })
     .json({ message: "Logged out" });
@@ -78,7 +80,8 @@ router.post("/login", async (req, res) => {
   res
     .cookie("token", token, {
       httpOnly: true,
-      sameSite: "lax",
+      sameSite: config.isProduction ? "none" : "lax",
+      secure: config.isProduction,
     })
     .json({ id: user._id, email: user.email });
 });

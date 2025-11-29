@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, type Request, type Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
@@ -14,7 +14,7 @@ const authSchema = z.object({
   password: z.string().min(6),
 });
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", async (req: Request, res: Response) => {
   const parseResult = authSchema.safeParse(req.body);
   if (!parseResult.success) {
     return res.status(400).json({ message: "Invalid input" });
@@ -44,7 +44,7 @@ router.post("/signup", async (req, res) => {
     .json({ id: user._id, email: user.email });
 });
 
-router.post("/logout", (req, res) => {
+router.post("/logout", (req: Request, res: Response) => {
   res
     .cookie("token", "", {
       httpOnly: true,
@@ -55,7 +55,7 @@ router.post("/logout", (req, res) => {
     .json({ message: "Logged out" });
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req: Request, res: Response) => {
   const parseResult = authSchema.safeParse(req.body);
   if (!parseResult.success) {
     return res.status(400).json({ message: "Invalid input" });

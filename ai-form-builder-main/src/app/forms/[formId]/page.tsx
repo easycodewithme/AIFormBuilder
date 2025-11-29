@@ -110,7 +110,6 @@ const FormPage = ({ params }: PageProps) => {
       `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
       {
         method: "POST",
-        credentials: "include",
         body: data,
       }
     );

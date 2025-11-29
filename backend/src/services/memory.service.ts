@@ -15,7 +15,7 @@ export async function getRelevantFormsFromMongo(
   ownerId: string,
   promptEmbedding: number[]
 ): Promise<IForm[]> {
-  const forms = await FormModel.find({ ownerId }).lean();
+  const forms = (await FormModel.find({ ownerId }).lean()) as unknown as IForm[];
   const scored = forms
     .filter((f) => Array.isArray(f.embedding) && f.embedding.length === promptEmbedding.length)
     .map((f) => ({
@@ -26,7 +26,7 @@ export async function getRelevantFormsFromMongo(
     .sort((a, b) => b.score - a.score)
     .slice(0, config.retrieval.topK);
 
-  return scored.map((s) => s.form as IForm);
+  return scored.map((s) => s.form);
 }
 
 export async function getRelevantForms(
@@ -48,8 +48,8 @@ export async function getRelevantForms(
 
       const ids = (queryResult.matches || []).map((m: any) => m.id);
       if (ids.length > 0) {
-        const forms = await FormModel.find({ _id: { $in: ids } }).lean();
-        return forms as IForm[];
+        const forms = (await FormModel.find({ _id: { $in: ids } }).lean()) as unknown as IForm[];
+        return forms;
       }
     } catch (err) {
       console.error("Pinecone query failed, falling back to MongoDB memory", err);

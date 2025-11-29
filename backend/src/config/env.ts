@@ -5,7 +5,7 @@ dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 
 export const config = {
   port: process.env.PORT || 4000,
-  frontendUrl: process.env.FRONTEND_URL || "http://localhost:3000",
+  frontendUrl: process.env.FRONTEND_URL,
   mongoUri: process.env.MONGODB_URI || "",
   mongoDbName: process.env.MONGODB_DB_NAME || "centralign_forms",
   jwtSecret: process.env.JWT_SECRET || "",
